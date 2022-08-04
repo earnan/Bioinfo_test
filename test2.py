@@ -72,7 +72,7 @@ with open(ingfa_path, 'r') as ingfa_handle:
             elif index1_strand == '-':
                 l_line_dict[index1][1].append(index2+':'+index2_strand)
                 # list2 = []  # 39 - 4:+  对应+链开头127bp
-
+ic(l_line_dict)
 # #######################################################################
 
 # s_line_dict  序列
@@ -97,7 +97,8 @@ for i in single_ovl_index1:
     for n in l_line_dict[i][1]:  # v = 3:+
         if int(re.findall(r'\d+', n)[0]) in double_ovl_index1:
             l_line_dict[i][1].remove(n)
-ic(l_line_dict)
+
+# ic(l_line_dict)
 # ######################################################################
 # 修改序列
 # s_line_dict  旧的序列
