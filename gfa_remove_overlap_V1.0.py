@@ -1,16 +1,61 @@
+#!/usr/bin/python3
+# -*- coding : utf-8 -*-
+##########################################################
+#
+#       Filename:   gfa_remove_overlap
+#         Author:   yujie
+#    Description:   gfa_remove_overlap
+#        Version:   1.0
+#           Time:   2022/08/13 18:58:15
+#  Last Modified:   2022/08/13 18:58:15
+#        Contact:   hi@arcsona.cn
+#        License:   Copyright (C) 2022
+#
+##########################################################
 from Bio import SeqIO
 from Bio.Seq import Seq
 from icecream import ic
 import argparse
 import linecache
 import os
+import pretty_errors
 import re
-import time
 import sys
+import time
 import copy
+
+parser = argparse.ArgumentParser(
+    add_help=False, usage='\
+\npython3   gfa_remove_overlap_V1.0.py\n\
+功能：\n\
+\n\
+1.常规使用\n\
+1.1 -i [ ] -o [ ] \n\
+\n\
+2.其他使用\n\
+2.1 -i [ ] -o [ ] \n\
+\n\
+Path: E:\OneDrive\jshy信息部\Script\Bioinfo_test\gfa_remove_overlap_V1.0.py\n\
+Path: /share/nas1/yuj/script/Bioinfo_test/gfa_remove_overlap_V1.0.py\n\
+Version: 1.0'
+)
+optional = parser.add_argument_group('可选项')
+required = parser.add_argument_group('必选项')
+optional.add_argument(
+    '-i', '--infile', metavar='[infile]', help='infile', type=str, default='E:\\OneDrive\\jshy信息部\\Script\\Bioinfo_test\\001_best_spades_graph.gfa', required=False)
+optional.add_argument(
+    '-o', '--outfile', metavar='[outfile]', help='outfile', type=str, default='F:/', required=False)
+optional.add_argument('-c1', '--flag1', help='run step 1?默认是,不运行则-c1',
+                      action='store_false', required=False)
+optional.add_argument('-c2', '--flag2', help='run step 2?默认否,运行则-c2 ',
+                      action='store_true', required=False)
+optional.add_argument('-h', '--help', action='help', help='[帮助信息]')
+args = parser.parse_args()
+
+
 # ####################################################################
 # 读取文件
-ingfa_path = "E:\\OneDrive\\jshy信息部\\Bioinfo_test\\001_best_spades_graph.gfa"
+ingfa_path = args.infile
 with open(ingfa_path, 'r') as ingfa_handle:
     s_line_dict = {}
     l_line_dict = {}
@@ -168,31 +213,10 @@ for index1, v in l_line_dict.items():
                     index1_strand_re_pos, l_line_dict)
 
 ic('去重', l_line_dict)
-# #######################################################################
-"""思路1不对
-# 初始化
-double_ovl_index1 = []  # 双端ovl
-single_ovl_index1 = []  # 单端ovl
 
-for k, v in l_line_dict.items():
-    if len(v[0]) > 0 and len(v[1]) > 0:
-        double_ovl_index1.append(k)
-    else:
-        single_ovl_index1.append(k)
-
-
-# 去重
-for i in single_ovl_index1:
-    for m in l_line_dict[i][0]:  # k = 39:+
-        if int(re.findall(r'\d+', m)[0]) in double_ovl_index1:
-            l_line_dict[i][0].remove(m)
-    for n in l_line_dict[i][1]:  # v = 3:+
-        if int(re.findall(r'\d+', n)[0]) in double_ovl_index1:
-            l_line_dict[i][1].remove(n)
-"""
 # ##############################################################################
 # 输出新的gfa
-outgfa_path = "E:\\OneDrive\\jshy信息部\\Bioinfo_test\\edit-001_best_spades_graph.gfa"
+outgfa_path = "E:\\OneDrive\\jshy信息部\\Script\\Bioinfo_test\\edit-001_best_spades_graph.gfa"
 with open(outgfa_path, 'w') as outgfa:
     for k, v in s_line_dict.items():
         outgfa.write('S\t{}\t{}\n'.format(k, v))
