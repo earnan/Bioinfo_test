@@ -1,7 +1,7 @@
 Tree:((li:32.3768,((taozi:7.686,Pmu:7.686):20.2099,pipa:27.8958):4.4809):4.1142,pingguo:36.491)
 Lambda:	0.0114794
 # IDs of nodes:((li<0>,((taozi<2>,Pmu<4>)<3>,pipa<6>)<5>)<1>,pingguo<8>)<7>
-# Output format for: ' Average Expansion', 'Expansions', 'No Change', 'Contractions', and 'Branch-specific P-values' = (node ID, node ID): (0,5) (2,4) (3,6) (1,8) 
+# Output format0. for: ' Average Expansion', 'Expansions', 'No Change', 'Contractions', and 'Branch-specific P-values' = (node ID, node ID): (0,5) (2,4) (3,6) (1,8) 
 # Output format for 'Branch cutting P-values' and 'Likelihood Ratio Test': (0, 1, 2, 3, 4, 5, 6, 7, 8)
 Average Expansion:	(0.0270353,-0.0481211)	(-0.0942298,0.15075)	(-0.345422,0.0030185)	(-0.00643073,0.142176)
 Expansion :	(5308,14)	(1213,2843)	(848,2527)	(2,5031)
